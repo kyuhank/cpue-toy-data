@@ -1,1 +1,5 @@
-{}
+{
+  "cpue_vessel": {
+    "min_hooks": 2000
+  }
+}
