@@ -4,18 +4,19 @@ run-name: "New synthetic data · ${{ github.sha }}"
 on:
   push:
     branches: [main]
-    paths: ['data/**', '.github/workflows/update.yml']
+    paths: ['data/**', 'config/**', '.github/workflows/update.yml']
   workflow_dispatch:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   pipeline:
     name: Pipeline
-    uses: kyuhank/cpue-actions-demo/.github/workflows/toy-pipeline.yml@b2cb43f328803089ffad45dbcfec0c8d7e621611
+    uses: kyuhank/cpue-actions-demo/.github/workflows/toy-pipeline.yml@9dc85ef98a9869d39ab979eb184f70981cd176a3
     with:
       data_repository: ${{ github.repository }}
       data_ref: ${{ github.sha }}
-      analysis_ref: b2cb43f328803089ffad45dbcfec0c8d7e621611
+      analysis_ref: 9dc85ef98a9869d39ab979eb184f70981cd176a3
 
