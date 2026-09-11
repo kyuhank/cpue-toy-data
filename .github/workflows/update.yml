@@ -13,9 +13,9 @@ permissions:
 jobs:
   pipeline:
     name: Pipeline
-    uses: kyuhank/cpue-actions-demo/.github/workflows/toy-pipeline.yml@f8f70eab7285a7ddc3a8a9bcefb30ade7100a219
+    uses: kyuhank/cpue-actions-demo/.github/workflows/toy-pipeline.yml@b1821674b14222c26e1169b39f98cdd1a42f3700
     with:
       data_repository: ${{ github.repository }}
       data_ref: ${{ github.sha }}
-      analysis_ref: f8f70eab7285a7ddc3a8a9bcefb30ade7100a219
+      analysis_ref: b1821674b14222c26e1169b39f98cdd1a42f3700
 
