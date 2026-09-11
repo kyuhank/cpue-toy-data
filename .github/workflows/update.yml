@@ -1,11 +1,16 @@
 name: New data to report
-run-name: "New synthetic data · ${{ github.sha }}"
+run-name: "${{ inputs.data_version && format('Database version {0}', inputs.data_version) || format('Synthetic update · {0}', github.sha) }}"
 
 on:
   push:
     branches: [main]
     paths: ['data/**', 'config/**', '.github/workflows/update.yml']
   workflow_dispatch:
+    inputs:
+      data_version:
+        description: 'Published Supabase snapshot version (blank uses the configured data source)'
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -14,9 +19,13 @@ permissions:
 jobs:
   pipeline:
     name: Pipeline
-    uses: kyuhank/cpue-actions-demo/.github/workflows/toy-pipeline.yml@f0d79a0f45e15eb9ee922c7ff4f8341afe5dc230
+    uses: kyuhank/cpue-actions-demo/.github/workflows/toy-pipeline.yml@c171055b1155d5cf7d5d4d26e223cdc15f4243bd
+    secrets:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
     with:
+      data_version: ${{ inputs.data_version }}
       data_repository: ${{ github.repository }}
       data_ref: ${{ github.sha }}
-      analysis_ref: f0d79a0f45e15eb9ee922c7ff4f8341afe5dc230
+      analysis_ref: c171055b1155d5cf7d5d4d26e223cdc15f4243bd
 
