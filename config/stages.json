@@ -4,5 +4,8 @@
   },
   "assessment_vessel_high_m": {
     "M": 0.3
+  },
+  "prepare_vessel": {
+    "revision": 1
   }
 }
