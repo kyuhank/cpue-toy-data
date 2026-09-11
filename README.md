@@ -11,6 +11,4 @@ git commit -m "Add one synthetic year"
 git push
 ```
 
-The Actions **Add synthetic year** workflow also adds data and runs the chain.
-It explicitly calls the analysis workflow because `GITHUB_TOKEN` commits do not
-start another push workflow. All data and models are for demonstration only.
+All records are synthetic and all models are for demonstration only.
