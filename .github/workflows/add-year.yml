@@ -1,4 +1,4 @@
-name: Try it - add one synthetic year
+name: Add synthetic year
 
 on:
   workflow_dispatch:
