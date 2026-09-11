@@ -1,0 +1,44 @@
+name: Try it - add one synthetic year
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  update:
+    name: Add synthetic data
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      data_sha: ${{ steps.commit.outputs.sha }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+      - name: Append one wholly synthetic year
+        run: python3 scripts/add_year.py --append
+      - name: Commit the data as the person who started this run
+        id: commit
+        env:
+          ACTOR: ${{ github.actor }}
+        run: |
+          git config user.name "$ACTOR"
+          git config user.email "$ACTOR@users.noreply.github.com"
+          git add data/toy-fishery.sqlite
+          git commit -m "Add one synthetic year"
+          git push origin HEAD:main
+          git rev-parse HEAD | sed 's/^/sha=/' >> "$GITHUB_OUTPUT"
+
+  pipeline:
+    name: Pipeline
+    needs: update
+    uses: kyuhank/cpue-actions-demo/.github/workflows/toy-pipeline.yml@f8f70eab7285a7ddc3a8a9bcefb30ade7100a219
+    with:
+      data_repository: ${{ github.repository }}
+      data_ref: ${{ needs.update.outputs.data_sha }}
+      analysis_ref: f8f70eab7285a7ddc3a8a9bcefb30ade7100a219
+

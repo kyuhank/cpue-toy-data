@@ -24,6 +24,28 @@ cross-repository personal-access-token secret is needed for the public workflow.
 
 ## Add a synthetic year
 
+**Try it entirely in your browser:**
+
+1. Use [this template](https://github.com/kyuhank/cpue-toy-data/generate) to create
+   your own **public** repository with the default `main` branch.
+2. Open **Actions** and enable workflows if GitHub asks.
+3. Select **Try it - add one synthetic year**, then **Run workflow** on `main`.
+4. Watch Add synthetic data → Extract → CPUE → Assessment → Report.
+5. Download the final `report-1` artifact (the number is the run attempt), unzip
+   it, and open `report.html`. Repeat to add another synthetic year.
+
+No R, Python, Docker, Quarto, or Kflow2 installation is required for this route.
+The standard GitHub-hosted runners execute the models. The data repository is
+public; use only the supplied synthetic data. The demo ends in 2035, after which
+you can create another template copy for a fresh rehearsal.
+
+The browser workflow commits as the GitHub user who clicks Run workflow. Because
+commits made with `GITHUB_TOKEN` do not trigger another push workflow, it
+explicitly calls the separate analysis repository's reusable workflow after the
+data update. A normal user push uses the automatic push-triggered route below.
+
+**From a local checkout:**
+
 ```bash
 python3 scripts/add_year.py --append
 git add data/toy-fishery.sqlite
