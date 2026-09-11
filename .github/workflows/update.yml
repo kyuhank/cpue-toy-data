@@ -1,0 +1,21 @@
+name: New data to report
+run-name: "New synthetic data · ${{ github.sha }}"
+
+on:
+  push:
+    branches: [main]
+    paths: ['data/**', '.github/workflows/update.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pipeline:
+    name: Pipeline
+    uses: kyuhank/cpue-actions-demo/.github/workflows/toy-pipeline.yml@f8f70eab7285a7ddc3a8a9bcefb30ade7100a219
+    with:
+      data_repository: ${{ github.repository }}
+      data_ref: ${{ github.sha }}
+      analysis_ref: f8f70eab7285a7ddc3a8a9bcefb30ade7100a219
+
