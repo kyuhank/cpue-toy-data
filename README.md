@@ -1,9 +1,13 @@
-# CPUE demo data and triggers
+# Synthetic fishery data
 
-Companion to [cpue-actions-demo](https://github.com/kyuhank/cpue-actions-demo).
+Versioned example records and workflow triggers for the [CPUE demo](https://github.com/kyuhank/cpue-actions-demo).
 
-Synthetic submissions run through submission → QC → preparation and loading. Failed QC stops before publication. Accepted releases then feed extraction, CPUE analyses and reporting, assessment inputs, models, results summary and the assessment report. Stage-setting changes rerun only the affected analysis path.
+**Submission → QC → Prepare & load → Database**
 
-Visitor settings use the temporary `demo-runtime` branch. Run records and outputs appear in **Actions** and expire after the demonstration. The SQLite file is the local data fixture.
+QC rejects invalid records before loading. A corrected submission passes through the checks again, then becomes a database release for extraction and analysis.
 
-[Open the demo](https://kyuhank.github.io/cpue-actions-demo/)
+Fixed snapshots support comparisons between data versions. New submissions add at most one batch; repeated demonstrations do not accumulate data. The SQLite fixture supports local runs.
+
+Visitor selections use the temporary `demo-runtime` branch. Run records and outputs expire ten minutes after completion; the baseline is retained.
+
+[Open the demo](https://kyuhank.github.io/cpue-actions-demo/) · [Browse the database](https://kyuhank.github.io/cpue-actions-demo/data.html)
