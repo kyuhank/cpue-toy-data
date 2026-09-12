@@ -1,14 +1,9 @@
-# Synthetic fishery data
+# CPUE demo data and triggers
 
-New data here trigger extraction → CPUE → toy assessment → report, using the
-reusable workflow in [cpue-actions-demo](https://github.com/kyuhank/cpue-actions-demo).
-Runs and report artifacts appear in this repository’s **Actions** tab.
+Companion to [cpue-actions-demo](https://github.com/kyuhank/cpue-actions-demo).
 
-```bash
-python3 scripts/add_year.py --append
-git add data/toy-fishery.sqlite
-git commit -m "Add one synthetic year"
-git push
-```
+Accepted synthetic database releases and stage-setting changes trigger a pinned reusable workflow: extraction → CPUE → input preparation → assessments → synthesis → report.
 
-All records are synthetic and all models are for demonstration only.
+Visitor settings use the temporary `demo-runtime` branch. Run records and outputs appear in **Actions** and expire after the demonstration. The SQLite file is the local data fixture.
+
+[Open the demo](https://kyuhank.github.io/cpue-actions-demo/)
