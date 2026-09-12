@@ -1,5 +1,5 @@
 name: New data to report
-run-name: "${{ inputs.data_version && format('Database version {0}', inputs.data_version) || format('Synthetic update · {0}', github.sha) }}"
+run-name: "${{ inputs.source_commit && format('Workshop · {0}', inputs.source_commit) || format('Synthetic update · {0}', github.sha) }}"
 
 on:
   push:
@@ -7,6 +7,10 @@ on:
     paths: ['data/**', 'config/**', '.github/workflows/update.yml']
   workflow_dispatch:
     inputs:
+      source_commit:
+        description: 'Exact saved data and module configuration commit'
+        required: false
+        type: string
       intake_mode:
         description: 'Fixed synthetic intake: none, valid, invalid'
         required: false
@@ -38,6 +42,5 @@ jobs:
       intake_mode: ${{ inputs.intake_mode || 'none' }}
       request_id: ${{ inputs.request_id }}
       data_repository: ${{ github.repository }}
-      data_ref: ${{ github.sha }}
+      data_ref: ${{ inputs.source_commit || github.sha }}
       analysis_ref: da1b480443869bd19b878b0addc359be89abc4cb
-
