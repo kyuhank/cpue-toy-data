@@ -7,6 +7,15 @@ on:
     paths: ['data/**', 'config/**', '.github/workflows/update.yml']
   workflow_dispatch:
     inputs:
+      intake_mode:
+        description: 'Fixed synthetic intake: none, valid, invalid'
+        required: false
+        default: none
+        type: string
+      request_id:
+        description: 'Reserved workshop request'
+        required: false
+        type: string
       data_version:
         description: 'Published Supabase snapshot version (blank uses the configured data source)'
         required: false
@@ -15,17 +24,20 @@ on:
 permissions:
   contents: read
   actions: read
+  id-token: write
 
 jobs:
   pipeline:
     name: Pipeline
-    uses: kyuhank/cpue-actions-demo/.github/workflows/toy-pipeline.yml@40a495600b01b44198cba35ecbc9f2f68c7df5a6
+    uses: kyuhank/cpue-actions-demo/.github/workflows/toy-pipeline.yml@21cd6f8ced55643d8235587d318969a18855a6b4
     secrets:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
     with:
       data_version: ${{ inputs.data_version }}
+      intake_mode: ${{ inputs.intake_mode || 'none' }}
+      request_id: ${{ inputs.request_id }}
       data_repository: ${{ github.repository }}
       data_ref: ${{ github.sha }}
-      analysis_ref: 40a495600b01b44198cba35ecbc9f2f68c7df5a6
+      analysis_ref: 21cd6f8ced55643d8235587d318969a18855a6b4
 
