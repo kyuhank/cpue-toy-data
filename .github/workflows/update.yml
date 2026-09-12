@@ -33,7 +33,7 @@ permissions:
 jobs:
   pipeline:
     name: Pipeline
-    uses: kyuhank/cpue-actions-demo/.github/workflows/toy-pipeline.yml@45c82aa6c47782d4f4bd882d6b6d65add9af24d2
+    uses: kyuhank/cpue-actions-demo/.github/workflows/toy-pipeline.yml@77451c299a38a240c1a842b521aaf82dd091729d
     secrets:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
@@ -43,4 +43,4 @@ jobs:
       request_id: ${{ inputs.request_id }}
       data_repository: ${{ github.repository }}
       data_ref: ${{ inputs.source_commit || github.sha }}
-      analysis_ref: 45c82aa6c47782d4f4bd882d6b6d65add9af24d2
+      analysis_ref: 77451c299a38a240c1a842b521aaf82dd091729d
